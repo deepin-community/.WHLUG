@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Treeland · 项目介绍</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" id="theme-link" href="assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="assets/animations/animations.css">
+<style>
+/* ===== deepin 社区模板 token（采样自模板截图） ===== */
+:root{
+  --bg:#e9f2fb; --bg-soft:#e2eefb; --surface:#ffffff; --surface-2:#f3f8fe;
+  --border:rgba(10,70,160,.13); --border-strong:rgba(10,70,160,.26);
+  --text-1:#132a45; --text-2:#4a5e76; --text-3:#8496ac;
+  --accent:#0b57e0; --accent-2:#0089ee; --accent-3:#20ccf9;
+  --grad:linear-gradient(115deg,#004fda 0%,#0092ef 55%,#45d5fb 100%);
+}
+/* ===== 页面背景（模板背景图） ===== */
+.bg-light{background:#e9f2fb url('media/bg-light.jpg') center/cover no-repeat}
+.bg-swirl{background:#e9f2fb url('media/bg-swirl.jpg') center/cover no-repeat}
+.bg-cover{background:#0051db url('media/bg-cover.jpg') center/cover no-repeat}
+/* 页头右侧品牌语 / 封面致谢角标（新背景为纯图，文字由页面补充） */
+.brand-mark{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:28px;color:var(--text-2);white-space:nowrap}
+.brand-mark::before{content:"";width:9px;height:15px;background:var(--accent);border-radius:2px}
+.wordmark{position:absolute;top:44px;left:96px;font-size:54px;font-weight:800;color:#fff;z-index:2}
+.slogan{position:absolute;left:96px;bottom:40px;display:flex;align-items:center;gap:10px;
+  font-size:30px;color:rgba(255,255,255,.9);letter-spacing:.14em;z-index:2}
+.slogan::before{content:"";width:9px;height:15px;background:#fff;opacity:.95;border-radius:2px}
+.site{position:absolute;right:96px;bottom:40px;font-size:30px;color:rgba(255,255,255,.92);letter-spacing:.3em;z-index:2}
+/* ===== 页头 ===== */
+.page-head{display:flex;align-items:baseline;gap:18px;min-height:64px}
+.page-no{font-size:54px;font-weight:800;color:var(--accent)}
+.page-head .h2{font-size:54px;margin:0}
+.head-sub{font-size:30px;color:var(--text-2);margin-top:10px}
+/* ===== 白色内容纸 ===== */
+.sheet{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow);padding:24px 30px;margin-top:18px;flex:1;min-height:0;overflow:hidden}
+.sheet.glass{background:rgba(255,255,255,.8);backdrop-filter:blur(8px)}
+/* ===== 图标 ===== */
+.vicon{width:32px;height:32px;flex:none}
+.vicon.sm{width:26px;height:26px}
+h4.flex{display:flex;align-items:center;gap:9px;margin:0 0 8px;font-size:34px}
+/* ===== 目录 ===== */
+.toc-title-en{font-size:72px;font-weight:800;color:var(--text-1);line-height:1}
+.toc-title-zh{font-size:48px;font-weight:800;color:var(--accent);margin-top:8px}
+.toc-line{flex:1;height:1px;background:linear-gradient(to right,var(--border-strong),transparent);margin:0 8px 10px 24px}
+.toc-grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;
+  gap:22px 34px;margin-top:26px;align-items:center}
+.toc-item{display:grid;grid-template-columns:78px 1fr;gap:20px;align-items:center}
+.toc-sq{width:76px;height:76px;border-radius:14px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;box-shadow:var(--shadow)}
+.toc-sq.alt{background:var(--accent-2)}
+.toc-item h4{font-size:36px;margin:0 0 5px;color:var(--text-1)}
+.toc-item p{font-size:28px;color:var(--text-3);margin:0}
+/* ===== 卡片栅格（等高填满） ===== */
+.grid-fill{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:18px;margin-top:16px;min-height:0}
+.vcard{background:linear-gradient(160deg,#ffffff 0%,#e9f3fd 100%);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);
+  padding:16px 22px;display:flex;flex-direction:column;justify-content:center}
+.vcard.hi{background:linear-gradient(160deg,#ffffff 0%,#dcebfd 100%)}
+.vcard h4 .vicon{width:44px;height:44px;padding:6px;box-sizing:border-box;border-radius:9px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,#fff),color-mix(in srgb,var(--accent-2) 16%,#fff))}
+.vcard h4{display:flex;align-items:center;gap:9px;margin:0 0 8px;font-size:34px}
+.vcard h4 .vicon{width:26px;height:26px}
+.vcard p{font-size:30px;color:var(--text-2);margin:0;line-height:1.7}
+.vcard.hi{border-color:color-mix(in srgb,var(--accent) 42%,transparent)}
+/* ===== 线条 / 连接感 ===== */
+.flow-wrap{flex:1;position:relative;display:flex;min-height:0;margin-top:16px}
+.flow-wrap .grid-fill{margin-top:0;width:100%;position:relative;z-index:1}
+.flow-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+/* 蛇形时间线（里程碑） */
+.snake{flex:1;position:relative;margin-top:10px;min-height:0}
+.snake::before{content:"";position:absolute;left:1.5%;right:1.5%;top:50%;height:3px;transform:translateY(-50%);
+  border-radius:2px;background:linear-gradient(90deg,#a9cdf4,var(--accent) 28%,var(--accent-2) 72%,#8fd4f8);opacity:.55}
+.sn-row{position:relative;z-index:1;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;height:100%}
+.sn-col{display:grid;grid-template-rows:1fr auto auto auto 1fr;justify-items:center;align-items:center;min-height:0}
+.sn-col .sn-card{width:100%;align-self:center;background:linear-gradient(160deg,#fff,#e9f3fd);
+  border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:11px 13px}
+.sn-col.hi .sn-card{background:linear-gradient(160deg,#fff,#d8eafc);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.sn-card h4{font-size:32px;margin:6px 0 5px}
+.sn-card p{font-size:28px;color:var(--text-2);margin:0;line-height:1.55}
+.sn-date{display:inline-block;padding:2px 9px;border-radius:7px;background:var(--accent);color:#fff;font-size:28px;font-weight:700}
+.sn-date.hi{background:var(--accent-2)}
+.sn-stem{width:2px;height:10px;background:var(--border-strong)}
+.sn-dot{width:18px;height:18px;border-radius:50%;background:var(--accent);border:3px solid #fff;
+  box-shadow:0 0 0 2px var(--accent);z-index:1}
+.sn-dot.hi{background:var(--accent-2);box-shadow:0 0 0 2px var(--accent-2)}
+.sn-card h4{display:flex;align-items:center;gap:7px}
+.sn-card h4 .vicon{width:28px;height:20px;flex:none}
+/* 10 月 weave：列错层 + 波浪线穿行 */
+.weave{flex:1;position:relative;margin-top:16px;min-height:0}
+.weave-cols{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;height:100%}
+.wcol{display:grid;grid-template-rows:1fr 1fr;gap:18px;min-height:0}
+.wcol.up{transform:translateY(-12px)}
+.wcol.down{transform:translateY(12px)}
+/* 中轴 spine（核心亮点） */
+.spine{flex:1;display:grid;grid-template-columns:1fr 56px 1fr;gap:18px;align-items:stretch;margin-top:16px;min-height:0}
+.sp-col{display:grid;grid-template-rows:repeat(3,1fr);gap:16px;min-height:0}
+.sp-mid{position:relative}
+.sp-mid::before{content:"";position:absolute;left:50%;top:4%;bottom:4%;width:3px;transform:translateX(-50%);
+  border-radius:2px;background:linear-gradient(180deg,#a9cdf4,var(--accent) 45%,var(--accent-2) 75%,#8fd4f8);opacity:.55}
+.sp-node{position:absolute;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;z-index:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));border:3px solid #fff;box-shadow:0 2px 6px rgba(11,87,224,.3)}
+.sp-node::before,.sp-node::after{content:"";position:absolute;top:50%;width:16px;height:2px;background:var(--border-strong);transform:translateY(-50%)}
+.sp-node::before{left:-15px}
+.sp-node::after{right:-15px}
+/* 步骤链（成果清单 / 大数字） */
+.vconn{width:2px;height:12px;background:var(--border-strong);margin-left:39px}
+.stat-conn{align-self:center;width:2px;height:16px;background:var(--border-strong);position:relative}
+.stat-conn::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--border-strong);border-bottom:0}
+/* ===== 演示页 ===== */
+.demo-grid,.demo-mix{flex:1;display:grid;gap:22px;margin-top:16px;min-height:0}
+.demo-grid{grid-template-columns:1fr 1fr}
+.demo-mix{grid-template-columns:1.15fr 1fr}
+.demo-stack{display:grid;grid-template-rows:1fr 1fr;gap:22px;min-height:0}
+.demo-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#0b1626;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:0}
+.demo-card video,.demo-card img{display:block;width:100%;flex:1;min-height:0;object-fit:cover}
+.demo-card img{cursor:zoom-in}
+.demo-cap{flex:none;display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:30px;
+  font-weight:600;color:var(--text-1);background:var(--surface)}
+.demo-cap .cicon{width:26px;height:19px;flex:none}
+.demo-cap .dur{margin-left:auto;font-size:28px;font-weight:500;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 9%,transparent);padding:2px 10px;border-radius:999px}
+.demo-cap .hint{font-size:28px;color:var(--text-3);
+  background:color-mix(in srgb,var(--text-3) 10%,transparent);padding:2px 10px;border-radius:999px}
+.vfail{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  color:#dbe8f7;font-size:32px;background:#0b1626}
+.vfail a{color:#7cc4ff}
+/* ===== 封面 / 致谢 ===== */
+.grad-slide{color:#fff}
+.glass-chip{display:inline-block;padding:8px 22px;border-radius:999px;font-size:32px;font-weight:600;
+  color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  backdrop-filter:blur(6px);letter-spacing:.06em}
+.qr-card{width:160px;background:#fff;border-radius:14px;overflow:hidden;text-align:center;box-shadow:0 10px 30px rgba(0,40,110,.28)}
+.qr-card .tag{background:linear-gradient(115deg,#0089ee,#20ccf9);color:#fff;font-size:28px;padding:7px 0;font-weight:600}
+.qr-card img{width:124px;margin:10px auto 14px}
+/* ===== 灯箱（双击放大） ===== */
+.lightbox{position:fixed;inset:0;background:rgba(5,18,38,.88);backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:999;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:84vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lightbox .lb-cap{color:#fff;font-size:32px;letter-spacing:.05em}
+/* ===== 对比 / 时间线 / 清单 ===== */
+.vs{display:grid;grid-template-columns:1fr 90px 1fr;gap:26px;align-items:stretch;margin-top:6px}
+.vs .side{padding:26px;border-radius:12px}
+.vs .side.old{border-top:3px solid var(--text-3);background:var(--surface)}
+.vs .side.new{border-top:3px solid var(--accent);background:var(--surface)}
+.vs .mid{font-size:72px;font-weight:800;color:var(--accent);display:flex;align-items:center;justify-content:center}
+.vs h3{display:flex;align-items:center;gap:10px;font-size:44px;margin:0 0 12px}
+.vs .side ul{padding-left:20px;font-size:32px;line-height:1.9;color:var(--text-2);margin:0}
+.vs .side.old li::marker{color:var(--text-3)}
+.vs .side.new li::marker{color:var(--accent)}
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:48px;height:2px;background:var(--border-strong)}
+.tl .row6{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start}
+.tl .item{position:relative;padding-top:78px;text-align:center}
+.tl .dot{position:absolute;top:38px;left:50%;transform:translateX(-50%);width:20px;height:20px;
+  border-radius:50%;background:var(--accent);border:4px solid var(--surface);box-shadow:0 0 0 2px var(--accent)}
+.tl .dot.hi{background:var(--accent-2);box-shadow:0 0 0 2px var(--accent-2)}
+.tl .year{font-size:30px;color:var(--text-2);letter-spacing:.08em;font-weight:700;position:absolute;top:-2px;left:0;right:0}
+.tl h4{font-size:34px;margin:0 0 6px}
+.tl p{font-size:28px;color:var(--text-2);margin:0;line-height:1.6}
+.check-row{display:grid;grid-template-columns:40px 1fr;gap:15px;align-items:center;
+  padding:12px 20px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(160deg,#ffffff,#eef5fd)}
+.card.card-soft{background:linear-gradient(160deg,#f9fcff,#e9f3fc)}
+.check-row .vicon{width:36px;height:36px}
+.big-stat{flex:1;padding:20px;border-radius:16px;color:#fff;text-align:center;background:var(--grad);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.big-stat.alt{background:linear-gradient(115deg,#0089ee,#45d5fb)}
+.big-stat .sicon{width:30px;height:30px;margin-bottom:6px}
+.big-stat .n{font-size:92px;font-weight:800;line-height:1.05}
+.big-stat .l{font-size:30px;opacity:.92;margin-top:4px}
+.legend{display:flex;gap:22px;justify-content:flex-end;font-size:28px;color:var(--text-2);margin-top:8px}
+.legend i{display:inline-block;width:26px;height:5px;border-radius:2px;vertical-align:middle;margin-right:6px}
+/* ===== 演示字号放大：deck 级覆盖 ===== */
+.slide{padding:56px 84px}
+.kicker{font-size:24px}
+.pill{font-size:22px;padding:6px 18px}
+.deck-footer{font-size:20px;bottom:18px}
+.brand-mark{font-size:19px}
+.brand-mark::before{width:11px;height:19px}
+.wordmark{font-size:42px}
+.slogan{font-size:20px}
+.slogan::before{width:11px;height:19px}
+.site{font-size:20px}
+.glass-chip{font-size:22px;padding:10px 28px}
+.qr-card .tag{font-size:18px;padding:9px 0}
+.toc-sq{font-size:32px}
+.demo-cap{padding:12px 18px;gap:12px}
+.demo-cap .dur,.demo-cap .hint{font-size:22px;padding:3px 14px}
+.sn-card{padding:12px 14px}
+.big-stat{padding:24px}
+.big-stat .sicon{width:40px;height:40px}
+.vs .side{padding:24px}
+.vconn{margin-left:43px}
+</style>
+</head>
+<body data-themes="corporate-clean" data-theme-base="assets/themes/">
+<div class="deck">
+
+  <!-- 1 · 封面 -->
+  <section class="slide grad-slide bg-cover" data-title="封面">
+    <div class="wordmark">deepin</div>
+    <div style="max-width:56%">
+      <p class="kicker anim-fade-up" data-anim="fade-up">深度社区 · 开源项目</p>
+      <h1 class="anim-fade-up" data-anim="fade-up" style="font-size:128px;font-weight:800;line-height:1.05;margin:16px 0 12px;letter-spacing:-.01em">Treeland</h1>
+      <p class="anim-fade-up" data-anim="fade-up" style="font-size:48px;font-weight:500;color:rgba(255,255,255,.95);margin:0 0 14px">新一代 Wayland 桌面合成器</p>
+      <p class="anim-fade-up" data-anim="fade-up" style="font-size:32px;color:rgba(255,255,255,.82);letter-spacing:.12em;margin:0">流畅 · 现代 · 安全的 Linux 桌面体验</p>
+      <p class="anim-fade-up" data-anim="fade-up" style="margin-top:44px"><span class="glass-chip">项目介绍 · 2026 年 9 月</span></p>
+    </div>
+    <div class="slogan">以用为本 拥抱创新</div>
+    <div class="site">www.deepin.org</div>
+    <div class="notes">开场：今天介绍深度社区的桌面合成器项目 Treeland。一句话定位：新一代 Wayland 桌面合成器，是整个桌面体验的地基。</div>
+  </section>
+
+  <!-- 2 · 目录 -->
+  <section class="slide bg-light" data-title="目录">
+    <div style="display:flex;align-items:flex-end">
+      <div>
+        <div class="toc-title-en">Content</div>
+        <div class="toc-title-zh">目录</div>
+      </div>
+      <div class="toc-line"></div>
+    </div>
+    <div class="toc-grid anim-stagger-list" data-anim-target>
+      <div class="toc-item"><div class="toc-sq">01</div><div><h4>项目概览</h4><p>是什么 · 为什么 · 亮点在哪</p></div></div>
+      <div class="toc-item"><div class="toc-sq">02</div><div><h4>动效演示</h4><p>窗口 · 手势 · 分屏 · 锁屏</p></div></div>
+      <div class="toc-item"><div class="toc-sq">03</div><div><h4>发展历程</h4><p>从一个人的坚守到满编归来</p></div></div>
+      <div class="toc-item"><div class="toc-sq">04</div><div><h4>DDE 整合与成果</h4><p>2026.5 的关键转折 · 5–7 月成绩单</p></div></div>
+      <div class="toc-item"><div class="toc-sq">05</div><div><h4>未来规划</h4><p>8 – 12 月产品与质量计划</p></div></div>
+      <div class="toc-item"><div class="toc-sq alt">06</div><div><h4>开源仓库</h4><p>github.com/linuxdeepin/treeland</p></div></div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="2" data-total="17"></span></div>
+    <div class="notes">流程预告：先认识项目，马上看一段真机演示，然后讲发展史、DDE 整合的转折，最后是下半年规划。</div>
+  </section>
+
+  <!-- 3 · 什么是 Treeland -->
+  <section class="slide bg-light" data-title="什么是 Treeland">
+    <div class="page-head"><span class="page-no">01</span><h2 class="h2">什么是 Treeland</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet" style="display:flex">
+      <div style="flex:1;display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:stretch;min-height:0">
+        <div style="display:flex;flex-direction:column;justify-content:center">
+          <p style="font-size:38px;line-height:1.7;font-weight:700;color:var(--text-1)">深度社区自主研发的新一代 Wayland 桌面合成器。</p>
+          <p class="dim" style="font-size:32px;line-height:1.9;margin-top:14px">它是整个桌面环境的“地基”：你看到的每一个窗口、每一段动画、每一次切换，都由它来绘制和调度。Treeland 为 DDE 桌面提供流畅、现代、安全的图形底座。</p>
+          <div class="row wrap" style="gap:12px;margin-top:24px">
+            <span class="pill pill-accent">开源项目</span>
+            <span class="pill pill-accent">2022 年启动</span>
+            <span class="pill pill-accent">服务 DDE 桌面</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:13px">
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaFilm.png">窗口动画</h4><p class="dim2" style="font-size:28px;margin:0">流畅细腻的窗口动效</p></div>
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaLayerGroup.png">多任务管理</h4><p class="dim2" style="font-size:28px;margin:0">工作区与多任务视图</p></div>
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaDesktop.png">多屏缩放</h4><p class="dim2" style="font-size:28px;margin:0">不同屏幕独立缩放</p></div>
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaHeartbeat.png">安全稳定</h4><p class="dim2" style="font-size:28px;margin:0">崩溃恢复 · 权限可控</p></div>
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaRocket.png">应用快速启动</h4><p class="dim2" style="font-size:28px;margin:0">常用应用即点即开</p></div>
+          <div class="card card-soft" style="padding:12px 16px;display:flex;flex-direction:column;justify-content:center"><h4 style="display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:32px"><img class="vicon sm" src="media/icons/FaPuzzlePiece.png">生态兼容</h4><p class="dim2" style="font-size:28px;margin:0">平滑承接 X11 应用</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="3" data-total="17"></span></div>
+    <div class="notes">给非技术同事的解释：合成器就是把应用画面合成到屏幕上的“总调度”。它决定了窗口好不好看、动不顺、稳不稳。</div>
+  </section>
+
+  <!-- 4 · 为什么是 Wayland -->
+  <section class="slide bg-light" data-title="为什么是 Wayland">
+    <div class="page-head"><span class="page-no">01</span><h2 class="h2">为什么是 Wayland</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="vs">
+        <div class="side old anim-fade-left" data-anim="fade-left">
+          <h3><img class="vicon" src="media/icons/FaHistory.png">X11 <span class="dim2" style="font-size:32px;font-weight:500">· 过去</span></h3>
+          <ul>
+            <li>数十年的积累，稳定可靠</li>
+            <li>兼容性极好，应用生态成熟</li>
+            <li>接口自由，但历史包袱沉重</li>
+            <li>缺乏输入隔离，应用可全局截屏与监听按键</li>
+          </ul>
+        </div>
+        <div class="mid">→</div>
+        <div class="side new anim-fade-right" data-anim="fade-right">
+          <h3><img class="vicon" src="media/icons/FaBolt.png">Wayland <span class="dim2" style="font-size:32px;font-weight:500">· 未来</span></h3>
+          <ul>
+            <li>架构更现代，安全与性能兼得</li>
+            <li>原生支持 HDR、VRR 等新特性</li>
+            <li>更好的多屏、缩放与旋转体验</li>
+            <li>Linux 桌面显示技术的未来方向</li>
+          </ul>
+        </div>
+      </div>
+      <p class="dim tc" style="margin-top:24px;font-size:32px">Treeland 从第一天起就选择 Wayland，为未来十年的桌面体验打底。</p>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="4" data-total="17"></span></div>
+    <div class="notes">X11 是几十年的老协议，稳定但难演进；Wayland 是全行业的方向。我们从第一行代码起就押注 Wayland。</div>
+  </section>
+
+  <!-- 5 · 核心亮点 -->
+  <section class="slide bg-light" data-title="核心亮点">
+    <div class="page-head"><span class="page-no">01</span><h2 class="h2">核心亮点</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="spine anim-stagger-list" data-anim-target>
+      <div class="sp-col">
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaSignInAlt.png">无缝登录体验</h4><p class="dim">从登录界面到桌面一气呵成，切换用户动画不中断。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaUsers.png">多用户 · 多席位</h4><p class="dim">支持多用户同时使用，一人一席，互不干扰。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaDesktop.png">灵活的多屏</h4><p class="dim">不同分辨率也能复制模式，各屏独立缩放与旋转。</p></div>
+      </div>
+      <div class="sp-mid">
+        <span class="sp-node" style="top:calc(16.666% - 7px)"></span>
+        <span class="sp-node" style="top:calc(50% - 7px)"></span>
+        <span class="sp-node" style="top:calc(83.333% - 7px)"></span>
+      </div>
+      <div class="sp-col">
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaHeartbeat.png">崩溃自动恢复</h4><p class="dim">合成器异常自动拉起，桌面不黑屏、应用不丢失。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaRocket.png">应用快速启动</h4><p class="dim">常用应用秒开，启动动画细腻不拖沓。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaPuzzlePiece.png">易开发 · 易维护</h4><p class="dim">基于 Qt 生态，一份代码适配多种渲染方式。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="5" data-total="17"></span></div>
+    <div class="notes">重点讲两个：无缝登录（登录到桌面、切换用户全程动画不中断）和多席位多用户（国际领先）。下一页直接看真机演示。</div>
+  </section>
+
+  <!-- 6 · 演示：窗口动效 -->
+  <section class="slide bg-light" data-title="演示 · 窗口动效">
+    <div class="page-head"><span class="page-no">02</span><h2 class="h2">动效演示 · 窗口</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <video src="media/basic-anim.mp4" poster="media/posters/basic-anim.jpg" controls muted loop playsinline preload="metadata"></video>
+        <div class="demo-cap"><img class="cicon" src="media/icons/FaFilm.png">窗口基础动效：打开 · 关闭 · 最小化 · 最大化<span class="dur">28s</span></div>
+      </div>
+      <div class="demo-card">
+        <video src="media/drag.mp4" poster="media/posters/drag.jpg" controls muted loop playsinline preload="metadata"></video>
+        <div class="demo-cap"><img class="cicon" src="media/icons/FaArrowsAlt.png">窗口内容拖拽<span class="dur">18s</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="6" data-total="17"></span></div>
+    <div class="notes">真机录屏：窗口打开/关闭/最小化/最大化的动效，以及窗口拖拽。动画全部由 Treeland 合成器驱动。点视频左下角播放键即可播放。</div>
+  </section>
+
+  <!-- 7 · 演示：手势与分屏 -->
+  <section class="slide bg-light" data-title="演示 · 手势与分屏">
+    <div class="page-head"><span class="page-no">02</span><h2 class="h2">动效演示 · 手势与分屏</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <video src="media/four-finger.mp4" poster="media/posters/four-finger.jpg" controls muted loop playsinline preload="metadata"></video>
+        <div class="demo-cap"><img class="cicon" src="media/icons/FaHandPaper.png">四指手势：多任务视图<span class="dur">10s</span></div>
+      </div>
+      <div class="demo-card">
+        <video src="media/split-screen.mp4" poster="media/posters/split-screen.jpg" controls muted loop playsinline preload="metadata"></video>
+        <div class="demo-cap"><img class="cicon" src="media/icons/FaColumns.png">二分屏：拖拽窗口到屏幕边缘<span class="dur">10s</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="7" data-total="17"></span></div>
+    <div class="notes">触控板四指手势切换多任务与工作区；二分屏是 8 月计划刚交付的能力，拖到边缘即可对半分屏。</div>
+  </section>
+
+  <!-- 8 · 演示：锁屏与液态玻璃 -->
+  <section class="slide bg-light" data-title="演示 · 锁屏与液态玻璃">
+    <div class="page-head"><span class="page-no">02</span><h2 class="h2">动效演示 · 锁屏与液态玻璃</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="demo-mix">
+      <div class="demo-card">
+        <video src="media/lock-wallpaper.mp4" poster="media/posters/lock-wallpaper.jpg" controls muted loop playsinline preload="metadata"></video>
+        <div class="demo-cap"><img class="cicon" src="media/icons/FaLock.png">锁屏动画与动态壁纸<span class="dur">64s</span></div>
+      </div>
+      <div class="demo-stack">
+        <div class="demo-card">
+          <img class="zoomable" src="media/glass-launcher.png" alt="液态玻璃 · 启动器" data-cap="液态玻璃 · 启动器">
+          <div class="demo-cap"><img class="cicon" src="media/icons/FaLayerGroup.png">液态玻璃 · 启动器<span class="hint">双击放大</span></div>
+        </div>
+        <div class="demo-card">
+          <img class="zoomable" src="media/glass-menu.png" alt="液态玻璃 · 右键菜单" data-cap="液态玻璃 · 右键菜单">
+          <div class="demo-cap"><img class="cicon" src="media/icons/FaBars.png">液态玻璃 · 右键菜单<span class="hint">双击放大</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="8" data-total="17"></span></div>
+    <div class="notes">左侧是锁屏动画与动态壁纸的完整演示；右侧两张是全新的“液态玻璃”视觉：启动器和右键菜单，双击可放大查看细节。</div>
+  </section>
+
+  <!-- 9 · 发展历程（bg2 章节页风格） -->
+  <section class="slide bg-swirl" data-title="发展历程">
+    <div class="page-head"><span class="page-no">03</span><h2 class="h2">从一个人的坚守，到一支队伍的归来</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet glass" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="tl">
+        <div class="row6 anim-stagger-list" data-anim-target>
+          <div class="item"><div class="year">2022</div><div class="dot"></div><h4>调研起步</h4><p>写 Demo、做测试、踩坑，半年验证可行性</p></div>
+          <div class="item"><div class="year">2024.5</div><div class="dot"></div><h4>正式立项</h4><p>6 月投入 7 人，全速开发</p></div>
+          <div class="item"><div class="year">2024 底</div><div class="dot"></div><h4>遭遇变数</h4><p>团队整体转岗，项目按下暂停键</p></div>
+          <div class="item"><div class="year">2025 底</div><div class="dot"></div><h4>星火重燃</h4><p>1 名开发者坚守，独立推进功能与优化</p></div>
+          <div class="item"><div class="year">2026.5</div><div class="dot hi"></div><h4>团队重建</h4><p>新增 4 人，冲刺 DDE 适配整合</p></div>
+          <div class="item"><div class="year">现在</div><div class="dot hi"></div><h4>满编前行</h4><p>持续补充，团队重回 7 人</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="9" data-total="17"></span></div>
+    <div class="notes">讲故事的一页：2022 半年调研；2024.5 立项、7 人进场；年底全员转岗、项目停摆；2025 底一位同事独自归队；2026.5 团队重建，现在满编 7 人。</div>
+  </section>
+
+  <!-- 10 · 团队曲线 -->
+  <section class="slide bg-light" data-title="团队曲线">
+    <div class="page-head"><span class="page-no">03</span><h2 class="h2">一支队伍的曲线</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet">
+      <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:32px;height:100%;min-height:0">
+        <div style="display:flex;align-items:center;min-height:0">
+          <svg viewBox="0 0 560 320" style="width:100%" role="img" aria-label="开发团队人数变化">
+            <g stroke="var(--border)" stroke-width="1">
+              <line x1="52" y1="270" x2="530" y2="270"/><line x1="52" y1="210" x2="530" y2="210"/>
+              <line x1="52" y1="150" x2="530" y2="150"/><line x1="52" y1="90" x2="530" y2="90"/>
+              <line x1="52" y1="30" x2="530" y2="30"/>
+            </g>
+            <g fill="var(--text-3)" font-size="20" text-anchor="end">
+              <text x="44" y="274">0</text><text x="44" y="214">2</text><text x="44" y="154">4</text>
+              <text x="44" y="94">6</text><text x="44" y="34">8</text>
+            </g>
+            <polyline points="80,60 200,270 320,240 440,120 520,60" fill="none"
+              stroke="var(--accent)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <g fill="var(--accent)">
+              <circle cx="80" cy="60" r="7"/><circle cx="200" cy="270" r="7"/><circle cx="320" cy="240" r="7"/>
+              <circle cx="440" cy="120" r="7"/><circle cx="520" cy="60" r="7"/>
+            </g>
+            <g fill="var(--text-1)" font-size="24" font-weight="700" text-anchor="middle">
+              <text x="80" y="40">7 人</text><text x="200" y="296" fill="var(--text-3)">0</text>
+              <text x="320" y="220">1 人</text><text x="440" y="100">5 人</text><text x="520" y="40">7 人</text>
+            </g>
+            <g fill="var(--text-3)" font-size="21" text-anchor="middle">
+              <text x="80" y="308">2024.6</text><text x="200" y="308">2024.12</text><text x="320" y="308">2025.11</text>
+              <text x="440" y="308">2026.5</text><text x="520" y="308">2026.8</text>
+            </g>
+          </svg>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:15px">
+          <div class="card" style="padding:15px 20px"><div style="display:flex;align-items:center;gap:9px"><img class="vicon sm" src="media/icons/FaUserMinus.png"><span class="kicker" style="font-size:32px">7 → 0</span></div><p class="dim" style="font-size:28px;margin:6px 0 0">2024 年底，7 名开发者因公司调整全部转岗，项目停摆。</p></div>
+          <div class="card" style="padding:15px 20px"><div style="display:flex;align-items:center;gap:9px"><img class="vicon sm" src="media/icons/FaUser.png"><span class="kicker" style="font-size:32px">0 → 1</span></div><p class="dim" style="font-size:28px;margin:6px 0 0">2025 年底，一位充满热情的开发者独自归队，重新点燃项目。</p></div>
+          <div class="card" style="padding:15px 20px"><div style="display:flex;align-items:center;gap:9px"><img class="vicon sm" src="media/icons/FaUsers.png"><span class="kicker" style="font-size:32px">1 → 7</span></div><p class="dim" style="font-size:28px;margin:6px 0 0">2026 年 5 月人力补齐，团队持续补充，重回 7 人满编。</p></div>
+          <p class="tc" style="font-size:24px;line-height:1.6;font-weight:700;color:var(--text-1);margin:4px 0 0">“一个人的坚守，等来了整个团队的归来。”</p>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="10" data-total="17"></span></div>
+    <div class="notes">曲线里是故事：归零、一个人、五个人、七个人。低谷期没有放弃，才有今天的满编。</div>
+  </section>
+
+  <!-- 11 · DDE 里程碑 -->
+  <section class="slide bg-light" data-title="DDE 整合攻坚">
+    <div class="page-head"><span class="page-no">04</span><h2 class="h2">携手 DDE：里程碑冲刺</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <p class="head-sub">此前 Treeland 一直是独立项目；2026 年 5 月起，正式开启与 DDE 桌面环境的适配整合 ——</p>
+    <div class="snake anim-stagger-list" data-anim-target>
+      <div class="sn-row">
+        <div class="sn-col">
+          <div class="sn-card"><span class="sn-date">5.12</span><h4>方案对齐</h4><p>对齐截图录屏方案，梳理 DDE 依赖协议，wine 适配协议提测</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+          <div class="sn-card"><span class="sn-date">5.19</span><h4>协议与重构</h4><p>完成自定义协议重构，DDE 快捷键适配启动，wine 开始提测</p></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-card"><span class="sn-date">5.30</span><h4>适配攻坚</h4><p>常见崩溃清零，适配协议全部就绪，控制中心关键模块完成适配</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+          <div class="sn-card"><span class="sn-date">6.09</span><h4>高优清障</h4><p>启动动画、多任务视图、窗口切换等问题清零，需求全部提测</p></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-card"><span class="sn-date">6.16</span><h4>多屏问题</h4><p>攻坚多屏 1/2 级问题，桌面组件全部集成</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot hi"></div><div class="sn-stem"></div>
+          <div class="sn-card hi"><span class="sn-date hi">6.29</span><h4>稳定验收</h4><p>消除稳定性崩溃，替代应用无严重问题</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="11" data-total="17"></span></div>
+    <div class="notes">5 月是转折点：从独立项目到与 DDE 正式整合。六个里程碑按周推进，6.29 完成稳定性验收。</div>
+  </section>
+
+  <!-- 12 · 阶段成果 -->
+  <section class="slide bg-light" data-title="阶段成果">
+    <div class="page-head"><span class="page-no">04</span><h2 class="h2">5 – 7 月，我们完成了什么</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet" style="display:grid;grid-template-columns:1.2fr 1fr;gap:34px;min-height:0">
+      <div style="display:flex;flex-direction:column;justify-content:space-evenly;min-height:0">
+        <div class="check-row"><img class="vicon" src="media/icons/FaCheckCircle.png"><div><b style="font-size:32px">稳定性大幅提升</b><p class="dim2" style="font-size:28px;margin:3px 0 0">常见崩溃问题全部解决，达成“无稳定崩溃”目标</p></div></div>
+        <div class="vconn"></div>
+        <div class="check-row"><img class="vicon" src="media/icons/FaCheckCircle.png"><div><b style="font-size:32px">DDE 桌面适配完成</b><p class="dim2" style="font-size:28px;margin:3px 0 0">控制中心、快捷键、桌面组件等关键模块完成适配</p></div></div>
+        <div class="vconn"></div>
+        <div class="check-row"><img class="vicon" src="media/icons/FaCheckCircle.png"><div><b style="font-size:32px">协议体系重构完成</b><p class="dim2" style="font-size:28px;margin:3px 0 0">自定义协议重构落地，适配所需协议全部实现</p></div></div>
+        <div class="vconn"></div>
+        <div class="check-row"><img class="vicon" src="media/icons/FaCheckCircle.png"><div><b style="font-size:32px">生态兼容持续改善</b><p class="dim2" style="font-size:28px;margin:3px 0 0">wine 应用适配提测，Xwayland 常见问题修复</p></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0;min-height:0">
+        <div class="big-stat"><img class="sicon" src="media/icons/FaBullseye-w.png"><div class="n">0</div><div class="l">稳定性崩溃（6 月底目标达成）</div></div>
+        <div class="stat-conn"></div>
+        <div class="big-stat alt"><img class="sicon" src="media/icons/FaChartLine-w.png"><div class="n">100%</div><div class="l">DDE 适配需求按里程碑提测</div></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="12" data-total="17"></span></div>
+    <div class="notes">三个月的成绩单：四件大事全部落地。右边两个数字：稳定崩溃清零；DDE 适配需求 100% 按里程碑提测。</div>
+  </section>
+
+  <!-- 13 · 8 月计划 -->
+  <section class="slide bg-light" data-title="8 月计划">
+    <div class="page-head"><span class="page-no">05</span><h2 class="h2">8 月：产品与底座</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <p class="head-sub">测试体系、底层升级与体验打磨并进</p>
+    <div class="snake anim-stagger-list" data-anim-target>
+      <div class="sn-row">
+        <div class="sn-col">
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaVial.png">协议测试框架</h4><p>自动化协议测试落地，覆盖率冲刺 100%。</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaLevelUpAlt.png">底层升级</h4><p>升级 wlroots 0.20，精简旧封装，架构更轻更稳。</p></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaWrench.png">Xwayland 兼容修复</h4><p>QQ音乐、WPS、东方财富等应用问题逐个击破。</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaColumns.png">二分屏</h4><p>拖拽或快捷键触发，窗口对半排布动画。</p></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaCamera.png">截图录屏适配</h4><p>自研截图录屏落地，修复 OBS 窗口录制。</p></div>
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+        </div>
+        <div class="sn-col">
+          <div class="sn-stem"></div><div class="sn-dot"></div><div class="sn-stem"></div>
+          <div class="sn-card"><h4><img class="vicon" src="media/icons/FaSlidersH.png">体验细节优化</h4><p>阻塞提醒窗口、任务栏拖动更流畅。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="13" data-total="17"></span></div>
+    <div class="notes">8 月关键词：测试框架、底层升级、兼容修复、二分屏、截图录屏、细节体验。</div>
+  </section>
+
+  <!-- 14 · 9 月计划 -->
+  <section class="slide bg-light" data-title="9 月计划">
+    <div class="page-head"><span class="page-no">05</span><h2 class="h2">9 月：智能与生态</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <p class="head-sub">用 AI 守护质量，把桌面连接到远方</p>
+    <div class="spine anim-stagger-list" data-anim-target>
+      <div class="sp-col">
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaRobot.png">AI 自动化测试</h4><p class="dim">AI Agent 驱动 GUI 测试，覆盖高频桌面场景。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaNetworkWired.png">远程桌面</h4><p class="dim">支持 Portal 远程桌面与 RDP 协议适配。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaWrench.png">Xwayland 收尾</h4><p class="dim">白屏、黑屏、缩放等遗留问题全部清零。</p></div>
+      </div>
+      <div class="sp-mid">
+        <span class="sp-node" style="top:calc(16.666% - 7px)"></span>
+        <span class="sp-node" style="top:calc(50% - 7px)"></span>
+        <span class="sp-node" style="top:calc(83.333% - 7px)"></span>
+      </div>
+      <div class="sp-col">
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaSignInAlt.png">登录体验升级</h4><p class="dim">登录界面支持自动登录与免密登录。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaFilm.png">动画体验打磨</h4><p class="dim">Space 预览、Dock 预览与提示动画优化。</p></div>
+        <div class="vcard"><h4><img class="vicon" src="media/icons/FaCogs.png">协议整改</h4><p class="dim">协议职责更清晰，携手应用厂商完成适配。</p></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="14" data-total="17"></span></div>
+    <div class="notes">9 月亮点：AI 自动化 GUI 测试上线；远程桌面（RDP）能力补齐；登录体验升级。</div>
+  </section>
+
+  <!-- 15 · 10 月计划 -->
+  <section class="slide bg-light" data-title="10 月计划">
+    <div class="page-head"><span class="page-no">05</span><h2 class="h2">10 月：性能与多用户</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <p class="head-sub">更快、更省电，也更懂多人协作</p>
+    <div class="weave">
+      <svg class="flow-bg" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,250 C200,150 400,150 600,250 S1000,350 1200,250" fill="none" stroke="var(--accent-2)" stroke-width="3.5" stroke-linecap="round" opacity=".5"/>
+        <path d="M0,278 C200,178 400,178 600,278 S1000,378 1200,278" fill="none" stroke="var(--accent-3)" stroke-width="2.5" stroke-linecap="round" opacity=".35"/>
+        <circle cx="200" cy="192" r="5" fill="var(--accent-2)" opacity=".8"/>
+        <circle cx="600" cy="250" r="5" fill="var(--accent-2)" opacity=".8"/>
+        <circle cx="1000" cy="308" r="5" fill="var(--accent-2)" opacity=".8"/>
+      </svg>
+      <div class="weave-cols anim-stagger-list" data-anim-target>
+        <div class="wcol up">
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaLeaf.png">局部刷新</h4><p>只重绘变化区域，更流畅也更省电。</p></div>
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaMagic.png">动画分级</h4><p>窗口、阴影、圆角等动画可自由开关。</p></div>
+        </div>
+        <div class="wcol down">
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaUserFriends.png">多用户完善</h4><p>多用户切换、多席位协同、会话隔离。</p></div>
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaListUl.png">Dock 动画</h4><p>预览与提示切换动画，超宽时变列表。</p></div>
+        </div>
+        <div class="wcol up">
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaClipboardCheck.png">协议整改收尾</h4><p>完成全部整改，提供适配仓库给应用。</p></div>
+          <div class="vcard"><h4><img class="vicon" src="media/icons/FaBug.png">缺陷持续收敛</h4><p>2 级缺陷解决率冲刺 20%。</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="15" data-total="17"></span></div>
+    <div class="notes">10 月关键词：局部刷新（性能功耗）、动画分级、多用户、Dock 动画、缺陷收敛。</div>
+  </section>
+
+  <!-- 16 · 质量冲刺 -->
+  <section class="slide bg-light" data-title="质量冲刺">
+    <div class="page-head"><span class="page-no">05</span><h2 class="h2">年底质量冲刺</h2><span class="brand-mark">以用为本 拥抱创新</span></div>
+    <div class="sheet" style="display:grid;grid-template-columns:1fr 1.35fr;gap:34px;min-height:0">
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <p style="font-size:34px;font-weight:700;color:var(--text-1);line-height:1.6">缺陷逐月收敛，年底交出一份“稳”的答卷。</p>
+        <p class="dim" style="font-size:30px;line-height:1.8;margin-top:10px">9 月起，2 级缺陷解决率从 10% 一路冲到 90%，3 级缺陷年底达成 80% —— 让每一次点击、每一次切换都稳定可靠。</p>
+        <div class="row" style="gap:14px;margin-top:10px">
+          <div class="card card-accent" style="padding:10px 16px;flex:1"><div style="font-size:38px;font-weight:800;color:var(--accent)">90%</div><div class="dim2" style="font-size:20px">2 级缺陷 · 12 月底</div></div>
+          <div class="card card-accent" style="padding:10px 16px;flex:1"><div style="font-size:38px;font-weight:800;color:var(--accent)">80%</div><div class="dim2" style="font-size:20px">3 级缺陷 · 12 月底</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;min-height:0">
+        <svg viewBox="0 0 640 320" style="width:100%" role="img" aria-label="缺陷解决率目标">
+          <g stroke="var(--border)" stroke-width="1">
+            <line x1="60" y1="280" x2="610" y2="280"/><line x1="60" y1="220" x2="610" y2="220"/>
+            <line x1="60" y1="160" x2="610" y2="160"/><line x1="60" y1="100" x2="610" y2="100"/>
+            <line x1="60" y1="40" x2="610" y2="40"/>
+          </g>
+          <g fill="var(--text-3)" font-size="20" text-anchor="end">
+            <text x="52" y="284">0%</text><text x="52" y="224">25%</text><text x="52" y="164">50%</text>
+            <text x="52" y="104">75%</text><text x="52" y="44">100%</text>
+          </g>
+          <polyline points="110,256 270,232 430,136 590,64" fill="none" stroke="var(--accent)"
+            stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="110,280 270,280 430,232 590,88" fill="none" stroke="var(--text-3)"
+            stroke-width="3" stroke-dasharray="7 6" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="var(--accent)">
+            <circle cx="110" cy="256" r="6"/><circle cx="270" cy="232" r="6"/><circle cx="430" cy="136" r="6"/><circle cx="590" cy="64" r="6"/>
+          </g>
+          <g fill="var(--text-3)">
+            <circle cx="430" cy="232" r="5"/><circle cx="590" cy="88" r="5"/>
+          </g>
+          <g fill="var(--text-1)" font-size="22" font-weight="700" text-anchor="middle">
+            <text x="110" y="240">10%</text><text x="270" y="216">20%</text><text x="430" y="120">60%</text><text x="590" y="48">90%</text>
+            <text x="430" y="256" fill="var(--text-3)">20%</text><text x="590" y="112" fill="var(--text-3)">80%</text>
+          </g>
+          <g fill="var(--text-3)" font-size="21" text-anchor="middle">
+            <text x="110" y="304">9 月</text><text x="270" y="304">10 月</text><text x="430" y="304">11 月</text><text x="590" y="304">12 月</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i>2 级缺陷解决率</span>
+          <span><i style="background:var(--text-3)"></i>3 级缺陷解决率</span>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">Treeland · 项目介绍</span><span class="slide-number" data-current="16" data-total="17"></span></div>
+    <div class="notes">质量的承诺：四个月把 2 级缺陷解决率推到 90%，3 级到 80%。这是年底的硬指标。</div>
+  </section>
+
+  <!-- 17 · 致谢 -->
+  <section class="slide grad-slide bg-cover" data-title="致谢">
+    <div class="wordmark">deepin</div>
+    <div style="max-width:62%;margin-bottom:250px">
+      <h1 class="anim-fade-up" data-anim="fade-up" style="font-size:72px;font-weight:800;line-height:1.1;margin:0">Thanks For Watching</h1>
+      <p class="anim-fade-up" data-anim="fade-up" style="font-size:30px;color:rgba(255,255,255,.93);margin:18px 0 0">感谢观看 · 欢迎加入 Treeland 共建</p>
+      <p class="anim-fade-up" data-anim="fade-up" style="margin-top:14px;font-size:24px;color:rgba(255,255,255,.85)">github.com/linuxdeepin/treeland</p>
+    </div>
+    <div style="position:absolute;left:96px;bottom:80px;display:flex;gap:30px">
+      <div class="qr-card anim-fade-up" data-anim="fade-up">
+        <div class="tag">深度科技社区</div>
+        <img src="media/qr-community.png" alt="深度科技社区二维码">
+      </div>
+      <div class="qr-card anim-fade-up" data-anim="fade-up">
+        <div class="tag">微信公众号</div>
+        <img src="media/qr-wechat.png" alt="微信公众号二维码">
+      </div>
+    </div>
+    <div class="slogan">以用为本 拥抱创新</div>
+    <div class="site">www.deepin.org</div>
+    <div class="notes">收尾：欢迎扫码加入深度科技社区与公众号；代码在 github.com/linuxdeepin/treeland，欢迎共建。</div>
+  </section>
+
+</div>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox">
+  <img id="lb-img" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<script src="assets/runtime.js"></script>
+<script>
+// 1) 双击放大预览（点击/Esc 关闭）
+(() => {
+  const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lb-img'), lbCap = document.getElementById('lb-cap');
+  document.querySelectorAll('.zoomable').forEach(img => {
+    img.addEventListener('dblclick', () => {
+      lbImg.src = img.src;
+      lbCap.textContent = img.dataset.cap || img.alt || '';
+      lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+})();
+// 2) 视频兜底：播放器出错时给出“用系统播放器打开”的链接
+(() => {
+  document.querySelectorAll('.demo-card video').forEach(v => {
+    v.addEventListener('error', () => {
+      const box = document.createElement('div');
+      box.className = 'vfail';
+      box.innerHTML = '该浏览器暂不支持内嵌播放<br><a href="' + v.src + '" target="_blank">点击用系统播放器打开视频 →</a>';
+      v.replaceWith(box);
+    }, true);
+  });
+})();
+</script>
+</body>
+</html>
